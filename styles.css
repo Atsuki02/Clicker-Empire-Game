@@ -9,6 +9,7 @@
   --sub-color: rgb(118, 78, 4);
   --title-color: rgb(163, 111, 7);
   --border-color: #f1e7e7;
+  --border-sub-color: rgb(253, 215, 145);
 }
 
 html {
@@ -208,8 +209,137 @@ img {
   overflow: scroll;
   height: 22rem;
 }
+
 .item {
   display: flex;
   justify-content: space-around;
   background: var(--sub-color);
+  margin-bottom: 1rem;
+}
+
+.item:hover {
+  border: 3px solid var(--border-sub-color);
+}
+
+.item img {
+  width: 20%;
+  height: auto;
+}
+
+/* .item-info {
+} */
+
+.item-info p {
+  text-align: left;
+}
+
+.item-name {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.item-price {
+  font-size: 1.8rem;
+  margin-top: 0;
+}
+
+.item-count {
+  text-align: right;
+  padding-right: 2rem;
+  width: 40%;
+  font-size: 1.8rem;
+}
+
+.item-counter {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.item-click {
+  margin-top: 0;
+  color: var(--main-color);
+}
+
+.purchase-section {
+  overflow: scroll;
+  height: 23rem;
+  background: var(--sub-color);
+  /* margin: 1rem; */
+}
+
+.purchase-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.purchase-info {
+  font-size: 1.6rem;
+}
+
+.item-img-info img {
+  width: 16rem;
+  height: auto;
+}
+
+.purchase-counter {
+  width: 94%;
+  padding: 1rem;
+}
+
+.purchase-counter p {
+  font-size: 1.8rem;
+}
+
+.purchase-question {
+  text-align: left;
+}
+
+.purchase-total-price {
+  text-align: right;
+}
+.purchase-counter input {
+  width: 100%;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  border-radius: 0.4rem;
+  outline: none;
+  border: none;
+  padding: 0.6rem;
+}
+
+.purchase-counter input:focus {
+  border: 3px solid var(--gradation-start);
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+.goback-btn,
+.purchase-btn {
+  padding: 0.6rem;
+  font-size: 1.6rem;
+  /* height: 2.5rem; */
+  width: 45%;
+  box-sizing: border-box;
+  border: 0;
+  background-color: var(--gradation-start);
+  border-radius: 0.6rem;
+  border-color: var(--gradation-end);
+  box-shadow: 0 3px 0px var(--shadow);
+  color: #fff;
+}
+
+.goback-btn:hover,
+.purchase-btn:hover {
+  background-color: var(--gradation-start);
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.3s;
+  transform: translateY(3px);
+  box-shadow: none;
 }

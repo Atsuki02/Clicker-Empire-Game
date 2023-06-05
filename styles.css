@@ -207,7 +207,7 @@ img {
   width: 100%;
   padding: 0;
   overflow: scroll;
-  height: 22rem;
+  height: 27rem;
 }
 
 .item {
@@ -224,6 +224,7 @@ img {
 .item img {
   width: 20%;
   height: auto;
+  padding: 1rem 1.5rem;
 }
 
 /* .item-info {
@@ -262,7 +263,7 @@ img {
 
 .purchase-section {
   overflow: scroll;
-  height: 23rem;
+  height: 27rem;
   background: var(--sub-color);
   /* margin: 1rem; */
 }

@@ -227,8 +227,9 @@ img {
   padding: 1rem 1.5rem;
 }
 
-/* .item-info {
-} */
+.item-info {
+  width: 40%;
+}
 
 .item-info p {
   text-align: left;
@@ -276,9 +277,11 @@ img {
 
 .purchase-info {
   font-size: 1.6rem;
+  width: 40%;
 }
 
 .item-img-info img {
+  padding: 2rem;
   width: 16rem;
   height: auto;
 }

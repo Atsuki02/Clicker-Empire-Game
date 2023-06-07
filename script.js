@@ -143,14 +143,29 @@ const config = {
 
 // making new class
 class UserAccount {
-  constructor(userName) {
+  constructor(
+    userName,
+    money = 30000000,
+    click = 25,
+    passedDays = 0,
+    timeWage = 0,
+    age = 20
+  ) {
     this.userName = userName;
-    this.money = 30000000;
-    this.click = 25;
-    this.passedDays = 0;
-    this.timeWage = 0;
-    this.age = 20;
+    this.money = money;
+    this.click = click;
+    this.passedDays = passedDays;
+    this.timeWage = timeWage;
+    this.age = age;
   }
+  // constructor(userName, money, click, passedDays, timeWage, age) {
+  //   this.userName = userName;
+  //   this.money = 30000000;
+  //   this.click = 25;
+  //   this.passedDays = 0;
+  //   this.timeWage = 0;
+  //   this.age = 20;
+  // }
 
   // subtract the money spent
   purchase(total) {
@@ -242,10 +257,49 @@ items.forEach((item) => {
 
 // console.log(itemsObj);
 
-// making instance
+// making a new account
 function initializeUserAccount() {
   const inputUserName = document.querySelector(".input-user-name");
   let userAccount = new UserAccount(inputUserName.value);
+  displayNone(config.firstPage);
+  console.log(config.mainGamePage);
+  config.mainGamePage.append(mainGamePage(userAccount));
+}
+
+// display the data of login user account
+function loginUserAccount() {
+  const inputUserName = document.querySelector(".input-user-name");
+  let jsonObj = localStorage.getItem(inputUserName.value);
+  let user = JSON.parse(jsonObj);
+  if (!user) {
+    alert("You have no data");
+    return false;
+  }
+
+  let userAccount = new UserAccount(
+    user.userName,
+    user.money,
+    user.click,
+    user.passedDays,
+    user.timeWage,
+    user.age
+  );
+
+  // let jsonItemObj = localStorage.getItem(inputUserName.value);
+  // let item = JSON.parse(jsonItemObj);
+
+  // let ItemsObj = new Item(
+  //   item.itemName,
+  //   item.price,
+  //   item.earning,
+  //   item.maxPurchase,
+  //   item.type,
+  //   item.unit,
+  //   item.itemImg,
+  //   item.itemCount,
+  //   item.index
+  // );
+
   console.log(userAccount);
   displayNone(config.firstPage);
   console.log(config.mainGamePage);
@@ -322,22 +376,28 @@ function mainGamePage(userAccount) {
   const daysCounter = container.querySelector(".days-counter");
   const userAgeCount = container.querySelector(".user-age-count");
 
-  setInterval(() => {
-    // When 1 second is passed, increse days by 1
-    userAccount.increasePassedDays();
-    // When 1 second is passed, increase money by time wage
-    userAccount.increaseMoneyByTime();
-    daysCounter.innerHTML = `
-         ${userAccount.passedDays} days
-         `;
-    userMoneyNumber.innerHTML = `
-         ￥${userAccount.money}
-         `;
-    // When 365days is passed, increase age by 1
-    userAgeCount.innerHTML = `
-          ${userAccount.age} years old
-    `;
-  }, 1000);
+  // function setTimerStart() {
+  (function () {
+    setInterval(() => {
+      // When 1 second is passed, increse days by 1
+      userAccount.increasePassedDays();
+      // When 1 second is passed, increase money by time wage
+      userAccount.increaseMoneyByTime();
+      daysCounter.innerHTML = `
+               ${userAccount.passedDays} days
+               `;
+      userMoneyNumber.innerHTML = `
+               ￥${userAccount.money}
+               `;
+      // When 365days is passed, increase age by 1
+      userAgeCount.innerHTML = `
+                ${userAccount.age} years old
+          `;
+    }, 1000);
+  });
+  // }
+
+  // setTimerStart();
 
   //add click event to each item
   let item = itemList.querySelectorAll(".item");
@@ -367,12 +427,20 @@ function mainGamePage(userAccount) {
   // add to the event to save data
   const startoverBtn = container.querySelector(".startover-btn");
   const saveBtn = container.querySelector(".save-btn");
+
   startoverBtn.addEventListener("click", function () {
     confirm("Are you sure to reset all data?");
-    localStorage.removeItem("username");
+    localStorage.removeItem(userAccount.userName);
+    config.mainGamePage.innerHTML = "";
+    let resetUserAccount = new UserAccount(userAccount.userName);
+    config.mainGamePage.append(mainGamePage(resetUserAccount));
   });
+
   saveBtn.addEventListener("click", function () {
-    localStorage.setItem("username", userAccount.userName);
+    let user = JSON.stringify(userAccount);
+    localStorage.setItem(userAccount.userName, user);
+    // let items = JSON.stringify(itemsObj);
+    // localStorage.setItem(userAccount.userName, items);
     alert("Your data is saved. Put the same name next time");
   });
 

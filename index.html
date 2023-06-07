@@ -14,11 +14,7 @@
   <body>
     <!-- first-page -->
     <div id="first-page">
-      <form
-        class="account-page"
-        onsubmit="initializeUserAccount();
-        event.preventDefault()"
-      >
+      <form class="account-page">
         <h2 class="game-title">Clicker Empire Game</h2>
         <input
           class="input-user-name"
@@ -28,8 +24,22 @@
           required="required"
         />
         <div class="account-buttons">
-          <button class="new-btn" type="submit">New</button>
-          <button class="login-btn" type="submit">Login</button>
+          <button
+            class="new-btn"
+            type="submit"
+            onclick="initializeUserAccount();
+          event.preventDefault()"
+          >
+            New
+          </button>
+          <button
+            class="login-btn"
+            type="submit"
+            onclick="loginUserAccount();
+          event.preventDefault()"
+          >
+            Login
+          </button>
         </div>
       </form>
     </div>

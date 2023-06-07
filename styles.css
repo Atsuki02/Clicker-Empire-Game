@@ -173,6 +173,11 @@ img {
   width: auto;
 }
 
+.burger-image img:active {
+  /* transform: translateY(-10px); */
+  transform: rotateX(180deg);
+}
+
 .right-section {
   box-sizing: border-box;
   background: var(--gradation);
@@ -346,4 +351,28 @@ img {
   transition: 0.3s;
   transform: translateY(3px);
   box-shadow: none;
+}
+
+.page-buttons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 68%;
+  left: 91.5%;
+}
+
+.page-buttons button {
+  background: var(--sub-color);
+  color: var(--border-sub-color);
+  width: 9rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  outline: none;
+}
+
+.page-buttons button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+  border: 3px solid var(--border-sub-color);
 }

@@ -14,19 +14,19 @@ This is the project assigned by "Recursion", which is a CS learning platform.
 
 # Technology used
 ・HTML, CSS, Javascript
-  - This is the web application only made by HTML, CSS and vanilla Javascript without using any flameworks. 
+  - This is the web application made only by HTML, CSS and vanilla Javascript without using any flameworks. 
  
  ・Object
   - To keep track of the data the user is holding such as the number or price of items, money or their age,
-  the Object is used and it keep rendering data based the data in itself
+  Object is used and it keeps rendering the user's information based on the data in itself
   
 ・DOM manipulation 　
-  - To display the data on the screen depending on the changing event, I used the DOM manipulation
-  such as addEventListner, classList, innerHTML, getElementById, so on and so forth.
+  - To display the data on the screen depending on the changing event, the DOM manipulation
+  is used, such as addEventListner, classList, innerHTML, getattribute, so on and so forth.
     
 ・Local storage
   - To save the user data and allow the user to log in and conitune to play the game from where the user left at, 
-  I made the feature where when the user pushed the save button and reused the data when user is logged in.
+  I added the feature where when the user pushes the save button and log in with the same name, the user can carry over the data.
   This can be achieved by using the local storage, which allows the user to store their data on the browser, and reuse it.
     
 

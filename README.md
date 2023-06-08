@@ -10,7 +10,7 @@ At the beginning, the user has 50,000 yen and earns 25 yen for each click on the
 1 day is passed in 1 second in this game.
 
 # why I made this
-This is the project assigned by "Recursion", which is CS learning platform.
+This is the project assigned by "Recursion", which is a CS learning platform.
 
 # Technology used
 ・HTML, CSS, Javascript

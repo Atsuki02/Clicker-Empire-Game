@@ -134,6 +134,9 @@ function displayBlock(ele) {
   ele.classList.add("d-block");
 }
 
+// set the variable false to check if the function is already executed
+let done = false;
+
 //using name space to avoid conflicts
 const config = {
   firstPage: document.getElementById("first-page"),
@@ -141,15 +144,16 @@ const config = {
   mainGamePage: document.getElementById("main-game-page"),
 };
 
-// making new class
+// making new user account class
 class UserAccount {
   constructor(
     userName,
-    money = 30000000,
+    money = 50000,
     click = 25,
     passedDays = 0,
     timeWage = 0,
-    age = 20
+    age = 20,
+    burgerCount = 0
   ) {
     this.userName = userName;
     this.money = money;
@@ -157,15 +161,8 @@ class UserAccount {
     this.passedDays = passedDays;
     this.timeWage = timeWage;
     this.age = age;
+    this.burgerCount = burgerCount;
   }
-  // constructor(userName, money, click, passedDays, timeWage, age) {
-  //   this.userName = userName;
-  //   this.money = 30000000;
-  //   this.click = 25;
-  //   this.passedDays = 0;
-  //   this.timeWage = 0;
-  //   this.age = 20;
-  // }
 
   // subtract the money spent
   purchase(total) {
@@ -181,8 +178,10 @@ class UserAccount {
 
   // increase money as time passes
   increaseMoneyByTime() {
-    this.money += Math.floor(this.timeWage * 365);
-    return this.money;
+    setInterval(() => {
+      this.money += Math.floor(this.timeWage * 365);
+      return this.money;
+    }, 1000);
   }
 
   //increse click wage
@@ -199,15 +198,18 @@ class UserAccount {
 
   // increse the passed days counter
   increasePassedDays() {
-    this.passedDays++;
-    // if 365 days is passed, increase age by 1
-    if (this.passedDays % 365 === 0) {
-      this.age++;
-    }
-    return this.passedDays;
+    setInterval(() => {
+      this.passedDays++;
+      // if 365 days is passed, increase age by 1
+      if (this.passedDays % 365 === 0) {
+        this.age++;
+      }
+      return this.passedDays;
+    }, 1000);
   }
 }
 
+// making new item class
 class Item {
   constructor(
     itemName,
@@ -238,76 +240,99 @@ class Item {
   }
 }
 
-const itemsObj = [];
-items.forEach((item) => {
-  itemsObj.push(
-    new Item(
-      item["itemName"],
-      item["price"],
-      item["earning"],
-      item["maxPurchase"],
-      item["type"],
-      item["unit"],
-      item["itemImg"],
-      item["itemCount"],
-      item["index"]
-    )
-  );
-});
-
-// console.log(itemsObj);
-
 // making a new account
 function initializeUserAccount() {
   const inputUserName = document.querySelector(".input-user-name");
-  let userAccount = new UserAccount(inputUserName.value);
-  displayNone(config.firstPage);
-  console.log(config.mainGamePage);
-  config.mainGamePage.append(mainGamePage(userAccount));
+  // Check if the user name is put, and if not give the alert
+  if (inputUserName.value === "") {
+    alert("Please put your name");
+    return;
+  }
+  // get the string data of user account and turn it into object
+  let jsonObj = localStorage.getItem(inputUserName.value);
+  let user = JSON.parse(jsonObj);
+  // if user already exists, throw an error
+  if (user === null) {
+    // making a user account instance
+    let userAccount = new UserAccount(inputUserName.value);
+    // making an item instance
+    const userItemsObj = [];
+    items.forEach((item) => {
+      userItemsObj.push(
+        new Item(
+          item["itemName"],
+          item["price"],
+          item["earning"],
+          item["maxPurchase"],
+          item["type"],
+          item["unit"],
+          item["itemImg"],
+          item["itemCount"],
+          item["index"]
+        )
+      );
+    });
+    displayNone(config.firstPage);
+    console.log(config.mainGamePage);
+    config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
+    // throw an error when user name already exists
+  } else alert("The user name already exists.");
 }
 
 // display the data of login user account
 function loginUserAccount() {
   const inputUserName = document.querySelector(".input-user-name");
+  // Check if the user name is put, and if not give the alert
+  if (inputUserName.value === "") {
+    alert("Please put your name");
+    return;
+  }
+  // get the string of user account data in local storage and turn it into object
   let jsonObj = localStorage.getItem(inputUserName.value);
   let user = JSON.parse(jsonObj);
+  // if data is not in local storage, show the alert
   if (!user) {
     alert("You have no data");
     return false;
   }
-
+  // making a instance using the data of user account in local storage
   let userAccount = new UserAccount(
     user.userName,
     user.money,
     user.click,
     user.passedDays,
     user.timeWage,
-    user.age
+    user.age,
+    user.burgerCount
   );
 
-  // let jsonItemObj = localStorage.getItem(inputUserName.value);
-  // let item = JSON.parse(jsonItemObj);
+  // get the string of user item data in local storage and turn it into object
+  let jsonItemObj = localStorage.getItem(inputUserName.value + "Items");
+  let userItem = JSON.parse(jsonItemObj);
 
-  // let ItemsObj = new Item(
-  //   item.itemName,
-  //   item.price,
-  //   item.earning,
-  //   item.maxPurchase,
-  //   item.type,
-  //   item.unit,
-  //   item.itemImg,
-  //   item.itemCount,
-  //   item.index
-  // );
-
-  console.log(userAccount);
+  // making a instance using the data of user items in local storage
+  const userItemsObj = [];
+  userItem.forEach((item) => {
+    userItemsObj.push(
+      new Item(
+        item["itemName"],
+        item["price"],
+        item["earning"],
+        item["maxPurchase"],
+        item["type"],
+        item["unit"],
+        item["itemImg"],
+        item["itemCount"],
+        item["index"]
+      )
+    );
+  });
   displayNone(config.firstPage);
-  console.log(config.mainGamePage);
-  config.mainGamePage.append(mainGamePage(userAccount));
+  config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
 }
 
 //display maingame page
-function mainGamePage(userAccount) {
+function mainGamePage(userAccount, userItemsObj) {
   const container = document.createElement("div");
 
   container.innerHTML = `
@@ -316,7 +341,7 @@ function mainGamePage(userAccount) {
         <div class="left-section">
           <div class="burger-section">
             <div class="burger-info">
-              <p class="burger-count">0 Burgers</p>
+              <p class="burger-count">${userAccount.burgerCount} Burgers</p>
               <p class="burger-wage">one click ￥${userAccount.click}</p>
             </div>
             <div class="burger-image">
@@ -357,54 +382,67 @@ function mainGamePage(userAccount) {
   itemList.classList.add("items");
   itemSection.append(itemList);
 
-  for (let i = 0; i < itemsObj.length; i++) {
+  for (let i = 0; i < userItemsObj.length; i++) {
     itemList.innerHTML += `
-                    <li class="item" data-index="${itemsObj[i].index}">
-                        <img src="${itemsObj[i].itemImg}" alt="" />
+                    <li class="item" data-index="${userItemsObj[i].index}">
+                        <img src="${userItemsObj[i].itemImg}" alt="" />
                         <div class="item-info">
-                          <p class="item-name">${itemsObj[i].itemName}</p>
-                          <p class="item-price">￥${itemsObj[i].price}</p>
+                          <p class="item-name">${userItemsObj[i].itemName}</p>
+                          <p class="item-price">￥${userItemsObj[i].price}</p>
                         </div>
                         <div class="item-count">
-                          <p class="item-counter">${itemsObj[i].itemCount}</p>
-                          <p class="item-click">￥${itemsObj[i].earning}/${itemsObj[i].unit}</p>
+                          <p class="item-counter">${userItemsObj[i].itemCount}</p>
+                          <p class="item-click">￥${userItemsObj[i].earning}/${userItemsObj[i].unit}</p>
                         </div>
                     </li>
             `;
   }
 
-  const daysCounter = container.querySelector(".days-counter");
-  const userAgeCount = container.querySelector(".user-age-count");
-
-  // function setTimerStart() {
-  (function () {
-    setInterval(() => {
-      // When 1 second is passed, increse days by 1
-      userAccount.increasePassedDays();
-      // When 1 second is passed, increase money by time wage
-      userAccount.increaseMoneyByTime();
-      daysCounter.innerHTML = `
-               ${userAccount.passedDays} days
-               `;
-      userMoneyNumber.innerHTML = `
-               ￥${userAccount.money}
-               `;
-      // When 365days is passed, increase age by 1
-      userAgeCount.innerHTML = `
+  // As 1 second passes, display the reflected data
+  setInterval(() => {
+    // As 1 second passes, display the refleced days
+    const daysCounter = container.querySelector(".days-counter");
+    daysCounter.innerHTML = `
+    ${userAccount.passedDays} days
+    `;
+    // As 1 second passes, display the refleced time wage
+    userMoneyNumber.innerHTML = `
+    ￥${userAccount.money}
+    `;
+    // Every 365days is passed, display the refleced age
+    const userAgeCount = container.querySelector(".user-age-count");
+    userAgeCount.innerHTML = `
                 ${userAccount.age} years old
           `;
-    }, 1000);
-  });
-  // }
+  }, 1000);
 
-  // setTimerStart();
+  // When the main page is loaded, excute the set time function
+  function setTimerStart() {
+    // As 1 second is passed, increse days by 1
+    userAccount.increasePassedDays();
+    // As 1 second is passed, increase money by time wage
+    userAccount.increaseMoneyByTime();
+  }
+
+  // Set time function is executed only once
+  if (done === false) {
+    setTimerStart();
+    // After the function is executed, set done to true
+    done = true;
+  }
 
   //add click event to each item
   let item = itemList.querySelectorAll(".item");
   for (let i = 0; i < item.length; i++) {
     item[i].addEventListener("click", function () {
       itemSection.innerHTML = "";
-      displayPurchasePage(item[i], itemSection, itemsObj[i], userAccount);
+      displayPurchasePage(
+        item[i],
+        itemSection,
+        userItemsObj[i],
+        userAccount,
+        userItemsObj
+      );
     });
   }
 
@@ -412,11 +450,11 @@ function mainGamePage(userAccount) {
   let burgerCount = container.querySelector(".burger-count");
   let burgerImage = container.querySelector(".burger-image");
   let userMoneyNumber = container.querySelector(".user-money-number");
-  let burgerCounter = 0;
+  // let burgerCounter = 0;
   burgerImage.addEventListener("click", function () {
-    burgerCounter++;
+    userAccount.burgerCount++;
     burgerCount.innerHTML = `
-    ${burgerCounter} Burgers
+    ${userAccount.burgerCount} Burgers
     `;
     userAccount.increaseMoneyByClick();
     userMoneyNumber.innerHTML = `
@@ -428,19 +466,47 @@ function mainGamePage(userAccount) {
   const startoverBtn = container.querySelector(".startover-btn");
   const saveBtn = container.querySelector(".save-btn");
 
+  // add the event to the startover btn when it's clicked
   startoverBtn.addEventListener("click", function () {
-    confirm("Are you sure to reset all data?");
-    localStorage.removeItem(userAccount.userName);
-    config.mainGamePage.innerHTML = "";
-    let resetUserAccount = new UserAccount(userAccount.userName);
-    config.mainGamePage.append(mainGamePage(resetUserAccount));
+    let confirmation = confirm("Are you sure to reset all data?");
+    // If confirmed, remove user account data from local storage
+    if (confirmation) {
+      localStorage.removeItem(userAccount.userName);
+      // display the reset screen
+      config.mainGamePage.innerHTML = "";
+      let resetUserAccount = new UserAccount(userAccount.userName);
+      let resetUserItemsObj = [];
+      items.forEach((item) => {
+        resetUserItemsObj.push(
+          new Item(
+            item["itemName"],
+            item["price"],
+            item["earning"],
+            item["maxPurchase"],
+            item["type"],
+            item["unit"],
+            item["itemImg"],
+            item["itemCount"],
+            item["index"]
+          )
+        );
+      });
+      done = false;
+      config.mainGamePage.append(
+        mainGamePage(resetUserAccount, resetUserItemsObj)
+      );
+    } else return;
   });
 
+  // add the event to the save btn when it's clicked
   saveBtn.addEventListener("click", function () {
+    // get the string data of user account and save it in local storage
     let user = JSON.stringify(userAccount);
     localStorage.setItem(userAccount.userName, user);
-    // let items = JSON.stringify(itemsObj);
-    // localStorage.setItem(userAccount.userName, items);
+
+    // get the string data of user items and save it in local storage
+    let items = JSON.stringify(userItemsObj);
+    localStorage.setItem(userAccount.userName + "Items", items);
     alert("Your data is saved. Put the same name next time");
   });
 
@@ -448,7 +514,13 @@ function mainGamePage(userAccount) {
 }
 
 //display purchase page
-function displayPurchasePage(clickedItem, itemSection, itemObj, userAccount) {
+function displayPurchasePage(
+  clickedItem,
+  itemSection,
+  itemObj,
+  userAccount,
+  userItemsObj
+) {
   itemSection.innerHTML = `
   <div class="purchase-section">
                 <div class="purchase-wrapper">
@@ -478,7 +550,6 @@ function displayPurchasePage(clickedItem, itemSection, itemObj, userAccount) {
   let purchaseInput = itemSection.querySelector(".purchase-input");
   purchaseInput.addEventListener("change", function () {
     let purchaseTotalPrice = itemSection.querySelector(".purchase-total-price");
-    // let total = purchaseInput.value * itemObj.price;
     purchaseTotalPrice.innerHTML = `
     total: ￥${priceSummation(purchaseInput, itemObj)}
     `;
@@ -488,7 +559,7 @@ function displayPurchasePage(clickedItem, itemSection, itemObj, userAccount) {
   let backBtn = itemSection.querySelector(".goback-btn");
   backBtn.addEventListener("click", function () {
     config.mainGamePage.innerHTML = "";
-    backReturn(userAccount);
+    backReturn(userAccount, userItemsObj);
   });
 
   // add click event to purchase btn
@@ -514,7 +585,8 @@ function displayPurchasePage(clickedItem, itemSection, itemObj, userAccount) {
           purchaseInput,
           index,
           wageSummation(purchaseInput, itemObj),
-          investmentProfitSummation(purchaseInput, itemObj)
+          investmentProfitSummation(purchaseInput, itemObj),
+          userItemsObj
         );
       }
     }
@@ -545,8 +617,8 @@ function investmentProfitSummation(purchaseInput, itemObj) {
 }
 
 // go back to the main page
-function backReturn(userAccount) {
-  config.mainGamePage.append(mainGamePage(userAccount));
+function backReturn(userAccount, userItemsObj) {
+  config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
 }
 
 //purchase items and go back to the main page
@@ -556,20 +628,22 @@ function purchaseItem(
   purchaseInput,
   index,
   wageTotal,
-  investmentTotalProfit
+  investmentTotalProfit,
+  userItemsObj
 ) {
   // display current amount of total money
   userAccount.purchase(priceTotal);
   // display current numbers of items
-  itemsObj[index].increaseItemCount(purchaseInput.value);
+  userItemsObj[index].increaseItemCount(purchaseInput.value);
   // increase click or time wage
-  if (itemsObj[index].type === "ability") {
+  if (userItemsObj[index].type === "ability") {
     userAccount.increaseClickWage(wageTotal);
-  } else if (itemsObj[index].type === "real estate") {
+  } else if (userItemsObj[index].type === "real estate") {
     userAccount.increaseTimeWage(wageTotal);
-  } else if (itemsObj[index].type === "investment") {
+  } else if (userItemsObj[index].type === "investment") {
     userAccount.increaseTimeWage(investmentTotalProfit);
   }
   // display the main game page
-  config.mainGamePage.append(mainGamePage(userAccount));
+  let done = false;
+  config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
 }

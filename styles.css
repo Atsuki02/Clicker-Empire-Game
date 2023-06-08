@@ -147,22 +147,16 @@ img {
   border-radius: 2rem;
   display: flex;
   justify-content: space-around;
-  /* box-sizing: border-box; */
 }
 
 .left-section {
   background: var(--gradation);
   padding: 2rem 2rem;
-  /* transform: translateX(-100px); */
   width: 30%;
 }
-/* 
-.burger-section {
-} */
 
 .burger-info {
   background: var(--sub-color);
-  /* padding: 0.1rem 7rem; */
   padding: 0.1rem 0;
   margin-bottom: 4rem;
   font-size: 2rem;
@@ -332,7 +326,6 @@ img {
 .purchase-btn {
   padding: 0.6rem;
   font-size: 1.6rem;
-  /* height: 2.5rem; */
   width: 45%;
   box-sizing: border-box;
   border: 0;

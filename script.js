@@ -273,7 +273,6 @@ function initializeUserAccount() {
       );
     });
     displayNone(config.firstPage);
-    console.log(config.mainGamePage);
     config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
     // throw an error when user name already exists
   } else alert("The user name already exists.");

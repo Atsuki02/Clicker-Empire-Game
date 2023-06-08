@@ -168,7 +168,6 @@ img {
 }
 
 .burger-image img:active {
-  /* transform: translateY(-10px); */
   transform: rotateX(180deg);
 }
 
@@ -191,7 +190,6 @@ img {
 .user-money {
   width: 49%;
   background: var(--sub-color);
-  /* padding: 1rem; */
   box-sizing: border-box;
   font-size: 1.6rem;
   margin: 0.2rem;
@@ -265,7 +263,6 @@ img {
   overflow: scroll;
   height: 27rem;
   background: var(--sub-color);
-  /* margin: 1rem; */
 }
 
 .purchase-wrapper {
@@ -368,4 +365,157 @@ img {
   cursor: pointer;
   opacity: 0.9;
   border: 3px solid var(--border-sub-color);
+}
+
+/* responsive for smartphone */
+
+@media screen and (max-width: 480px) {
+  .account-page {
+    width: 80%;
+  }
+
+  #second-page {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-page {
+    position: static;
+    transform: none;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+
+  .left-section {
+    background: var(--gradation);
+    padding: 2rem 2rem;
+    width: 90%;
+  }
+
+  .burger-info {
+    background: var(--sub-color);
+    padding: 0.1rem 0;
+    margin-bottom: 4rem;
+    font-size: 2rem;
+  }
+
+  .user-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .user-name,
+  .user-age,
+  .days-passed,
+  .user-money {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    margin: 0.2rem;
+  }
+
+  .right-section {
+    padding: 2rem 2rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .item-section {
+    margin-top: 2rem;
+  }
+
+  .item img {
+    width: 25%;
+  }
+
+  .item-info {
+    width: 40%;
+  }
+
+  .item-info p {
+    text-align: left;
+  }
+
+  .item-name {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .item-price {
+    font-size: 1.4rem;
+    margin-top: 0;
+  }
+
+  .item-count {
+    text-align: right;
+    padding-right: 2rem;
+    width: 30%;
+    font-size: 1.4rem;
+  }
+
+  .item-counter {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .purchase-info {
+    font-size: 1.4rem;
+    width: 40%;
+  }
+
+  .item-img-info img {
+    padding: 1rem;
+    width: 10rem;
+    height: auto;
+  }
+
+  .purchase-counter {
+    box-sizing: border-box;
+    width: 94%;
+    padding: 1rem;
+  }
+
+  .purchase-counter p {
+    font-size: 1.6rem;
+  }
+
+  .purchase-question {
+    text-align: left;
+  }
+
+  .purchase-total-price {
+    text-align: right;
+  }
+  .purchase-counter input {
+    width: 100%;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    border-radius: 0.4rem;
+    outline: none;
+    border: none;
+    padding: 0.6rem;
+  }
+
+  .page-buttons {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .page-buttons button {
+    background: var(--sub-color);
+    color: var(--border-sub-color);
+    width: 95%;
+    height: 6rem;
+    margin: 1rem auto;
+    padding: 0.8rem;
+  }
 }

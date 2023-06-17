@@ -24,22 +24,8 @@
           required="required"
         />
         <div class="account-buttons">
-          <button
-            class="new-btn"
-            type="submit"
-            onclick="initializeUserAccount();
-          event.preventDefault()"
-          >
-            New
-          </button>
-          <button
-            class="login-btn"
-            type="submit"
-            onclick="loginUserAccount();
-          event.preventDefault()"
-          >
-            Login
-          </button>
+          <button id="initialize-btn" class="new-btn" type="submit">New</button>
+          <button id="login-btn" class="login-btn" type="submit">Login</button>
         </div>
       </form>
     </div>
@@ -139,6 +125,6 @@
         </div>
       </div> -->
     <!-- second-page -->
-    <script src="script.js"></script>
+    <script type="module" src="/js/main.js"></script>
   </body>
 </html>

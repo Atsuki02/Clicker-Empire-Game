@@ -1,138 +1,6 @@
-// list of items
-const items = [
-  {
-    itemName: "Flip machine",
-    price: 15000,
-    earning: 25,
-    maxPurchase: 500,
-    type: "ability",
-    unit: "click",
-    itemImg: "img/grill.png",
-    itemCount: 0,
-    index: 0,
-  },
-  {
-    itemName: "ETF Stock",
-    price: 300000,
-    earning: 0.1,
-    maxPurchase: Infinity,
-    type: "investment",
-    unit: "sec",
-    itemImg: "img/chart.png",
-    itemCount: 0,
-    index: 1,
-  },
-  {
-    itemName: "ETF Bonds",
-    price: 300000,
-    earning: 0.07,
-    maxPurchase: Infinity,
-    type: "investment",
-    unit: "sec",
-    itemImg: "img/chart.png",
-    itemCount: 0,
-    index: 2,
-  },
-  {
-    itemName: "Lemonade Stand",
-    price: 30000,
-    earning: 30,
-    maxPurchase: 1000,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/juice.png",
-    itemCount: 0,
-    index: 3,
-  },
-  {
-    itemName: "Ice Cream Truck",
-    price: 100000,
-    earning: 120,
-    maxPurchase: 500,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/ice-cream.png",
-    itemCount: 0,
-    index: 4,
-  },
-  {
-    itemName: "House",
-    price: 20000000,
-    earning: 32000,
-    maxPurchase: 100,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/home.png",
-    itemCount: 0,
-    index: 5,
-  },
-  {
-    itemName: "Town House",
-    price: 40000000,
-    earning: 64000,
-    maxPurchase: 100,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/modern-house.png",
-    itemCount: 0,
-    index: 6,
-  },
-  {
-    itemName: "Mansion",
-    price: 250000000,
-    earning: 500000,
-    maxPurchase: 20,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/condominium.png",
-    itemCount: 0,
-    index: 7,
-  },
-  {
-    itemName: "Industrial Space",
-    price: 1000000000,
-    earning: 2200000,
-    maxPurchase: 10,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/factory.png",
-    itemCount: 0,
-    index: 8,
-  },
-  {
-    itemName: "Hotel Skyscraper",
-    price: 10000000000,
-    earning: 25000000,
-    maxPurchase: 5,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/skyscrapers.png",
-    itemCount: 0,
-    index: 9,
-  },
-  {
-    itemName: "Bullet-Speed Sky Railway",
-    price: 10000000000000,
-    earning: 30000000000,
-    maxPurchase: 1,
-    type: "real estate",
-    unit: "sec",
-    itemImg: "img/train.png",
-    itemCount: 0,
-    index: 10,
-  },
-];
-
-// display or hide the content
-function displayNone(ele) {
-  ele.classList.remove("d-block");
-  ele.classList.add("d-none");
-}
-
-function displayBlock(ele) {
-  ele.classList.remove("d-none");
-  ele.classList.add("d-block");
-}
+import { UserAccount, Item } from "./models.js";
+import { displayNone, displayBlock } from "./utils.js";
+import { items } from "./items.js";
 
 // set the variable false to check if the function is already executed
 let done = false;
@@ -144,104 +12,9 @@ const config = {
   mainGamePage: document.getElementById("main-game-page"),
 };
 
-// making new user account class
-class UserAccount {
-  constructor(
-    userName,
-    money = 50000,
-    click = 25,
-    passedDays = 0,
-    timeWage = 0,
-    age = 20,
-    burgerCount = 0
-  ) {
-    this.userName = userName;
-    this.money = money;
-    this.click = click;
-    this.passedDays = passedDays;
-    this.timeWage = timeWage;
-    this.age = age;
-    this.burgerCount = burgerCount;
-  }
-
-  // subtract the money spent
-  purchase(total) {
-    this.money = this.money - total;
-    return this.money;
-  }
-
-  // increse clicking wage
-  increaseMoneyByClick() {
-    this.money += this.click;
-    return this.money;
-  }
-
-  // increase money as time passes
-  increaseMoneyByTime() {
-    setInterval(() => {
-      this.money += Math.floor(this.timeWage * 365);
-      return this.money;
-    }, 1000);
-  }
-
-  //increse click wage
-  increaseClickWage(totalClickWage) {
-    this.click += totalClickWage;
-    return this.click;
-  }
-
-  // increase time wage
-  increaseTimeWage(totalTimeWage) {
-    this.timeWage += totalTimeWage;
-    return this.timeWage;
-  }
-
-  // increse the passed days counter
-  increasePassedDays() {
-    setInterval(() => {
-      this.passedDays++;
-      // if 365 days is passed, increase age by 1
-      if (this.passedDays % 365 === 0) {
-        this.age++;
-      }
-      return this.passedDays;
-    }, 1000);
-  }
-}
-
-// making new item class
-class Item {
-  constructor(
-    itemName,
-    price,
-    earning,
-    maxPurchase,
-    type,
-    unit,
-    itemImg,
-    itemCount,
-    index
-  ) {
-    this.itemName = itemName;
-    this.price = price;
-    this.earning = earning;
-    this.maxPurchase = maxPurchase;
-    this.type = type;
-    this.unit = unit;
-    this.itemImg = itemImg;
-    this.itemCount = itemCount;
-    this.index = index;
-  }
-
-  // increase the total number of items
-  increaseItemCount(itemTotal) {
-    this.itemCount = this.itemCount + parseInt(itemTotal);
-    return this.itemCount;
-  }
-}
-
 // making a new account
-function initializeUserAccount() {
+function initializeUserAccount(e) {
+  e.preventDefault();
   const inputUserName = document.querySelector(".input-user-name");
   // Check if the user name is put, and if not give the alert
   if (inputUserName.value === "") {
@@ -256,22 +29,7 @@ function initializeUserAccount() {
     // making a user account instance
     let userAccount = new UserAccount(inputUserName.value);
     // making an item instance
-    const userItemsObj = [];
-    items.forEach((item) => {
-      userItemsObj.push(
-        new Item(
-          item["itemName"],
-          item["price"],
-          item["earning"],
-          item["maxPurchase"],
-          item["type"],
-          item["unit"],
-          item["itemImg"],
-          item["itemCount"],
-          item["index"]
-        )
-      );
-    });
+    const userItemsObj = items.map((item) => new Item(...Object.values(item)));
     displayNone(config.firstPage);
     config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
     // throw an error when user name already exists
@@ -279,7 +37,8 @@ function initializeUserAccount() {
 }
 
 // display the data of login user account
-function loginUserAccount() {
+function loginUserAccount(e) {
+  e.preventDefault();
   const inputUserName = document.querySelector(".input-user-name");
   // Check if the user name is put, and if not give the alert
   if (inputUserName.value === "") {
@@ -305,30 +64,34 @@ function loginUserAccount() {
     user.burgerCount
   );
 
+  // When the each button clicked, call the each function
+
+  window.initializeUserAccount = initializeUserAccount;
+  window.loginUserAccount = loginUserAccount;
+
+  document
+    .getElementById("initialize-btn")
+    .addEventListener("click", initializeUserAccount);
+  document
+    .getElementById("login-btn")
+    .addEventListener("click", loginUserAccount);
+
   // get the string of user item data in local storage and turn it into object
   let jsonItemObj = localStorage.getItem(inputUserName.value + "Items");
   let userItem = JSON.parse(jsonItemObj);
 
   // making a instance using the data of user items in local storage
-  const userItemsObj = [];
-  userItem.forEach((item) => {
-    userItemsObj.push(
-      new Item(
-        item["itemName"],
-        item["price"],
-        item["earning"],
-        item["maxPurchase"],
-        item["type"],
-        item["unit"],
-        item["itemImg"],
-        item["itemCount"],
-        item["index"]
-      )
-    );
-  });
+  const userItemsObj = userItem.map((item) => new Item(...Object.values(item)));
   displayNone(config.firstPage);
   config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
 }
+
+document
+  .getElementById("initialize-btn")
+  .addEventListener("click", initializeUserAccount);
+document
+  .getElementById("login-btn")
+  .addEventListener("click", loginUserAccount);
 
 //display maingame page
 function mainGamePage(userAccount, userItemsObj) {

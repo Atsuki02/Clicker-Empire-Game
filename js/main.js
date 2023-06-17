@@ -64,18 +64,6 @@ function loginUserAccount(e) {
     user.burgerCount
   );
 
-  // When the each button clicked, call the each function
-
-  window.initializeUserAccount = initializeUserAccount;
-  window.loginUserAccount = loginUserAccount;
-
-  document
-    .getElementById("initialize-btn")
-    .addEventListener("click", initializeUserAccount);
-  document
-    .getElementById("login-btn")
-    .addEventListener("click", loginUserAccount);
-
   // get the string of user item data in local storage and turn it into object
   let jsonItemObj = localStorage.getItem(inputUserName.value + "Items");
   let userItem = JSON.parse(jsonItemObj);
@@ -86,6 +74,7 @@ function loginUserAccount(e) {
   config.mainGamePage.append(mainGamePage(userAccount, userItemsObj));
 }
 
+// When the each button clicked, call the each function
 document
   .getElementById("initialize-btn")
   .addEventListener("click", initializeUserAccount);

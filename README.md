@@ -1,33 +1,40 @@
-# Clicker-Empire-Game
-This is a simulation game called "Clicker Empire Game" where you earn money through jobs, investments, real estate, etc. 
-The objective of this game is to get rich and build an empire in the city.
+Clicker Empire Game
+================
+Clicker Empire Game is an engaging simulation game that challenges players to amass wealth and build a prosperous empire in the city. Through various means such as jobs, investments, and real estate ventures, players strive to accumulate money and achieve financial success.
 
-The user is 20 years old and starts out working at a fast food restaurant flipping hamburgers. 
-For each hamburger flipped, the user earns 25 yen.
-By saving money, the user can upgrade, invest, or buy real estate.
+Objective:
+================
+The primary goal of the game is to amass wealth and expand your empire within the city. Players start their journey at the age of 20, working at a fast food restaurant where they flip hamburgers. For each hamburger flipped, players earn 25 yen. By diligently saving money, players can unlock upgrades, make strategic investments, or purchase valuable real estate properties.
 
-At the beginning, the user has 50,000 yen and earns 25 yen for each click on the grill. 
-1 day is passed in 1 second in this game.
+Game Mechanics:
+================
+At the beginning of the game, players are equipped with 50,000 yen and earn 25 yen for each click on the grill to flip a hamburger. Time progresses rapidly in the game, with each second representing one day of in-game time.
 
-# why I made this
-This is the project assigned by "Recursion", which is a CS learning platform.
+Motivation:
+================
+This project was assigned by "Recursion," a renowned CS learning platform. The Clicker Empire Game serves as a practical exercise to apply and demonstrate proficiency in web development technologies.
 
-# Technology used
-・HTML, CSS, Javascript
-  - This is the web application made only by HTML, CSS and vanilla Javascript without using any flameworks. 
- 
- ・Object
-  - To keep track of the data the user is holding such as the number or price of items, money or their age,
-  Object is used and it keeps rendering the user's information based on the data in itself
-  
-・DOM manipulation 　
-  - To display the data on the screen depending on the changing event, the DOM manipulation
-  is used, such as addEventListner, classList, innerHTML, getattribute, so on and so forth.
-    
-・Local storage
-  - To save the user data and allow the user to log in and conitune to play the game from where the user left at, 
-  I added the feature where when the user pushes the save button and log in with the same name, the user can carry over the data.
-  This can be achieved by using the local storage, which allows the user to store their data on the browser, and reuse it.
+Technologies Used:
+================
+The Clicker Empire Game is developed using the following technologies:
+
+HTML, CSS, and JavaScript:
+-----------------
+The game is built exclusively using HTML, CSS, and vanilla JavaScript, without relying on any frameworks. This ensures a lightweight and efficient web application.
+
+Object-oriented Programming:
+-----------------
+To manage and track user data, such as the number and price of items, accumulated wealth, and player age, object-oriented programming principles are employed. User information is rendered dynamically based on the data stored within the objects.
+
+DOM Manipulation:
+-----------------
+To dynamically display data on the screen and respond to changing events, various DOM manipulation techniques are employed. This includes utilizing event listeners, manipulating CSS classes, updating innerHTML content, retrieving attributes, and more.
+
+Local Storage:
+-----------------
+To enhance user experience and allow for seamless gameplay, a local storage feature is implemented. Players can save their progress by pushing the save button and log back in with the same name to continue their game from where they left off. Local storage serves as a reliable means to store and retrieve user data within the browser environment.
+
+By leveraging these technologies, Clicker Empire Game delivers an immersive gaming experience that challenges players to strategically grow their wealth and create a thriving empire within the city.
     
 
   
